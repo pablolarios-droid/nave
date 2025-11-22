@@ -14,17 +14,11 @@
 <canvas id="c"></canvas>
 
 <script>
-// -------------------------------------------
-// CONFIG
-// -------------------------------------------
 const FRICTION = 0.95;
 const ACCEL = 0.45;
 const MAX_SPEED = 12;
 const BOUNDS_MODE = 'bounce';
 
-// -------------------------------------------
-// CANVAS
-// -------------------------------------------
 const canvas = document.getElementById('c');
 const ctx = canvas.getContext('2d');
 
@@ -35,18 +29,12 @@ function resize(){
 resize();
 addEventListener("resize", resize);
 
-// -------------------------------------------
-// IMÁGENES JPG
-// -------------------------------------------
 const bg = new Image();
 bg.src = "backround.png";
 
 const shipImg = new Image();
 shipImg.src = "nave.png";
 
-// -------------------------------------------
-// ESTADO DE LA NAVE
-// -------------------------------------------
 const ship = {
   x: canvas.width / 2,
   y: canvas.height / 2,
@@ -54,25 +42,17 @@ const ship = {
   vy: 0,
   angle: 0,
   drawH: 64,
-
-  size: 120 // ⭐⭐⭐ LÍNEA AGREGADA PARA CAMBIAR EL TAMAÑO ⭐⭐⭐
+  size: 120
 };
 
 const mouse = { x: canvas.width/2, y: canvas.height/2 };
 
-// -------------------------------------------
-// EVENTO MOUSE
-// -------------------------------------------
 addEventListener("mousemove", e=>{
   mouse.x = e.clientX;
   mouse.y = e.clientY;
 });
 
-// -------------------------------------------
-// UPDATE (FÍSICA)
-// -------------------------------------------
 function update(){
-
   const dx = mouse.x - ship.x;
   const dy = mouse.y - ship.y;
   const dist = Math.hypot(dx, dy) || 1;
@@ -112,11 +92,7 @@ function update(){
   }
 }
 
-// -------------------------------------------
-// DIBUJAR
-// -------------------------------------------
 function render(){
-
   if(bg.complete && bg.naturalWidth){
     ctx.drawImage(bg, 0, 0, canvas.width, canvas.height);
   } else {
@@ -129,7 +105,7 @@ function render(){
   ctx.rotate(ship.angle + Math.PI/2);
 
   if(shipImg.complete && shipImg.naturalWidth){
-    const scale = ship.size / shipImg.height; // ← usa el tamaño que agregamos
+    const scale = ship.size / shipImg.height;
     const w = shipImg.width * scale;
     const h = shipImg.height * scale;
     ctx.drawImage(shipImg, -w/2, -h/2, w, h);
@@ -146,9 +122,6 @@ function render(){
   ctx.restore();
 }
 
-// -------------------------------------------
-// LOOP
-// -------------------------------------------
 function loop(){
   update();
   render();
@@ -159,3 +132,5 @@ loop();
 
 </body>
 </html>
+
+
